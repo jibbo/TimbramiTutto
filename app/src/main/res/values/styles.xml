@@ -8,9 +8,13 @@
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
+  <style name="TextAppearance.Title" parent="TextAppearance.AppCompat.Body2">
+    <item name="android:textColor">@color/colorPrimary</item>
+  </style>
+
   <style name="TextAppearance.Timer" parent="TextAppearance.AppCompat.Display3">
     <item name="android:gravity">center</item>
-    <item name="android:textColor">@android:color/white</item>
+    <item name="android:textColor">@color/colorPrimary</item>
   </style>
 
   <style name="Widget.Button" parent="Widget.AppCompat.Button.Colored">

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <dimen name="default_padding">8dp</dimen>
+  <dimen name="double_padding">16dp</dimen>
   <dimen name="min_touch">48dp</dimen>
   <dimen name="big_touch">72dp</dimen>
+  <dimen name="timer_card_width">230dp</dimen>
+  <dimen name="hack_negative_fab_margin">-24dp</dimen>
 </resources>

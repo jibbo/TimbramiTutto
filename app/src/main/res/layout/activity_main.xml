@@ -4,22 +4,64 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@drawable/background_timer"
+  android:background="@color/colorPrimary"
   tools:context="it.duir.timbramitutto.MainActivity">
 
-  <TextView
-    android:id="@+id/main_timer"
-    style="@style/TextAppearance.Timer"
-    android:layout_width="match_parent"
+  <android.support.v7.widget.CardView
+    android:id="@+id/main_timer_layout"
+    android:layout_width="@dimen/timer_card_width"
     android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    tools:text="00:00:00" />
+    android:layout_centerInParent="true">
 
-  <Button
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/double_padding"
+      android:background="@android:color/background_light"
+      android:orientation="vertical">
+
+      <TextView
+        style="@style/TextAppearance.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/timer_start" />
+
+      <TextView
+        style="@style/TextAppearance.Timer"
+        android:id="@+id/main_begin_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/base_timer" />
+
+      <TextView
+        style="@style/TextAppearance.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/timer_end" />
+
+      <TextView
+        style="@style/TextAppearance.Timer"
+        android:id="@+id/main_end_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/base_timer" />
+
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
+
+  <android.support.design.widget.FloatingActionButton
     style="@style/Widget.Button"
-    android:layout_width="match_parent"
+    android:id="@+id/main_timer_btn"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:text="@string/inizio" />
+    android:layout_marginEnd="@dimen/hack_negative_fab_margin"
+    android:layout_marginRight="@dimen/hack_negative_fab_margin"
+    android:layout_marginBottom="@dimen/hack_negative_fab_margin"
+    android:layout_alignBottom="@id/main_timer_layout"
+    android:layout_alignEnd="@id/main_timer_layout"
+    android:layout_alignRight="@id/main_timer_layout"
+    android:src="@drawable/ic_play_arrow" />
 
 </RelativeLayout>

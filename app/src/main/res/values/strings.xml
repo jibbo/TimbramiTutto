@@ -1,4 +1,8 @@
 <resources>
   <string name="app_name">TimbramiTutto</string>
-  <string name="inizio">Inizio</string>
+  <string name="start">Inizio</string>
+  <string name="end">Fine</string>
+  <string name="timer_start">Ora inizio:</string>
+  <string name="base_timer">--:--</string>
+  <string name="timer_end">Ora fine:</string>
 </resources>
