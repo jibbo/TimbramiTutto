@@ -5,4 +5,5 @@
   <string name="timer_start">Ora inizio:</string>
   <string name="base_timer">--:--</string>
   <string name="timer_end">Ora fine:</string>
+  <string name="time_elapsed">Tempo trascorso:</string>
 </resources>
