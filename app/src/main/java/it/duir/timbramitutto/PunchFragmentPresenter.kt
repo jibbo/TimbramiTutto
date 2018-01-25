@@ -4,8 +4,8 @@ import eu.giovannidefrancesco.easysharedprefslib.IStorage
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivityPresenter(private val view: MainView, private val storage: IStorage,
-                            private val locale: Locale) : MainPresenter {
+class PunchFragmentPresenter(private val view: PunchView, private val storage: IStorage,
+                             private val locale: Locale) : PunchPresenter {
 
   companion object {
     val TIME_KEY = "timeInMillis"

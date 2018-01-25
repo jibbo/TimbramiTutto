@@ -6,4 +6,6 @@
   <string name="base_timer">--:--</string>
   <string name="timer_end">Ora fine:</string>
   <string name="time_elapsed">Tempo trascorso:</string>
+  <string name="timbratura">Timbratura</string>
+  <string name="storico">Storico</string>
 </resources>

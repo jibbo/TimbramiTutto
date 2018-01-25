@@ -18,36 +18,36 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MainActivityPresenterTest {
+public class MainFragmentPresenterTest {
 
   @Mock private IStorage storage;
-  @Mock private MainView view;
+  @Mock private PunchView view;
 
   private Locale locale;
-  private MainPresenter presenter;
+  private PunchPresenter presenter;
 
   @Before
   public void setUp() {
     locale = Locale.getDefault();
-    presenter = new MainActivityPresenter(view, storage, locale);
+    presenter = new PunchFragmentPresenter(view, storage, locale);
   }
 
   @Test
   public void testViewResumed() {
-    when(storage.get(MainActivityPresenter.Companion.getTIME_KEY(),
-                     MainActivityPresenter.Companion.getBASE_TIME())).thenReturn(0L);
+    when(storage.get(PunchFragmentPresenter.Companion.getTIME_KEY(),
+                     PunchFragmentPresenter.Companion.getBASE_TIME())).thenReturn(0L);
     presenter.viewResumed();
-    verify(storage).get(MainActivityPresenter.Companion.getTIME_KEY(), MainActivityPresenter.Companion.getBASE_TIME());
+    verify(storage).get(PunchFragmentPresenter.Companion.getTIME_KEY(), PunchFragmentPresenter.Companion.getBASE_TIME());
     verify(view, never()).showStartText(anyString());
   }
 
   @Test
   public void testViewResumedWithTimeStored() {
     final long timeInMillis = Calendar.getInstance(locale).getTimeInMillis();
-    when(storage.get(MainActivityPresenter.Companion.getTIME_KEY(),
-                     MainActivityPresenter.Companion.getBASE_TIME())).thenReturn(timeInMillis);
+    when(storage.get(PunchFragmentPresenter.Companion.getTIME_KEY(),
+                     PunchFragmentPresenter.Companion.getBASE_TIME())).thenReturn(timeInMillis);
     presenter.viewResumed();
-    verify(storage).get(MainActivityPresenter.Companion.getTIME_KEY(), MainActivityPresenter.Companion.getBASE_TIME());
+    verify(storage).get(PunchFragmentPresenter.Companion.getTIME_KEY(), PunchFragmentPresenter.Companion.getBASE_TIME());
     verify(view).showStartText(anyString());
   }
 

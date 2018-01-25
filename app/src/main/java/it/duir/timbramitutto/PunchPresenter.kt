@@ -1,6 +1,6 @@
 package it.duir.timbramitutto
 
-interface MainPresenter{
+interface PunchPresenter {
   fun viewResumed()
   fun toggleTimer()
 }
