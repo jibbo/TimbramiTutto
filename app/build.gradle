@@ -33,4 +33,5 @@ dependencies {
   implementation 'eu.giovannidefrancesco.sweetprefs:sweetprefs:1.0.1'
 
   testImplementation 'junit:junit:4.12'
+  testImplementation "org.mockito:mockito-core:2.13.0"
 }

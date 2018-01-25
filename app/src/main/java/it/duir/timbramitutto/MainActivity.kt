@@ -21,13 +21,18 @@ class MainActivity : AppCompatActivity(),
     main_timer_btn.setOnClickListener({ presenter.toggleTimer() })
   }
 
+  override fun onResume() {
+    super.onResume()
+    presenter.viewResumed()
+  }
+
   override fun showStartText(time: String) {
     main_begin_timer.text = time
   }
 
   override fun showPlayButton() {
-    val color = ContextCompat.getColor(this, R.color.emerald)
     main_timer_btn.setImageResource(R.drawable.ic_play_arrow)
+    val color = ContextCompat.getColor(this, R.color.emerald)
     main_timer_btn.backgroundTintList = ColorStateList.valueOf(color)
   }
 
@@ -43,6 +48,10 @@ class MainActivity : AppCompatActivity(),
 
   override fun resetEndTime() {
     main_end_timer.text = getString(R.string.base_timer)
+  }
+
+  override fun showElapsedTime(elapsedTime: String) {
+    main_time_elapsed.text = elapsedTime
   }
 
   override fun resetElapsedTime() {

@@ -6,5 +6,6 @@ interface MainView{
   fun showStopButton()
   fun showStartText(time: String)
   fun resetEndTime()
+  fun showElapsedTime(elapsedTime: String)
   fun resetElapsedTime()
 }

@@ -4,40 +4,50 @@ import eu.giovannidefrancesco.easysharedprefslib.IStorage
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivityPresenter(private val view: MainView, private val storage: IStorage, locale: Locale) : MainPresenter {
+class MainActivityPresenter(private val view: MainView, private val storage: IStorage,
+                            private val locale: Locale) : MainPresenter {
+
   companion object {
-    val TIME_STRING_KEY = "timeString"
+    val TIME_KEY = "timeInMillis"
     val TIME_FORMAT = "HH:mm"
-    val BASE_STRING = "--:--"
+    val BASE_TIME = 0L
   }
 
   private val dateFormatter = SimpleDateFormat(TIME_FORMAT, locale)
 
-  private val storedTime = storage.get(TIME_STRING_KEY, BASE_STRING)
+  private var storedTime = BASE_TIME
+  private var started = false
 
-  private var started: Boolean
-
-  init {
-    if (storedTime == BASE_STRING) {
+  override fun viewResumed() {
+    storedTime = storage.get(TIME_KEY, BASE_TIME)
+    if (storedTime != BASE_TIME) {
+      updateView(getFormattedTime(storedTime))
       started = true
-      updateView(storedTime)
-    } else {
-      started = false
     }
   }
 
   override fun toggleTimer() {
-    updateView(getFormattedTime())
+    val time = getTime()
+    updateView(getFormattedTime(time))
+    updateStorage(time)
     started = !started
+  }
+
+  private fun updateStorage(time: Long) {
+    if (started) {
+      storage.reset()
+    } else {
+      storedTime = time
+      storage.store(TIME_KEY, getTime())
+    }
   }
 
   private fun updateView(timeString: String) {
     if (started) {
       view.showPlayButton()
       view.showEndText(timeString)
-      storage.reset()
+      showElapsedTime()
     } else {
-      storage.store(TIME_STRING_KEY, timeString)
       view.showStopButton()
       view.showStartText(timeString)
       view.resetEndTime()
@@ -45,9 +55,27 @@ class MainActivityPresenter(private val view: MainView, private val storage: ISt
     }
   }
 
-  private fun getFormattedTime(): String {
-    val calendar = Calendar.getInstance()
+  private fun getFormattedTime(timeInMillis: Long): String {
+    val calendar = Calendar.getInstance(locale)
+    calendar.timeInMillis = timeInMillis
     return dateFormatter.format(calendar.time)
+  }
+
+  private fun showElapsedTime() {
+    val time = getTime() - storedTime
+    val elapsedTimeString = getElapsedTimeString(time)
+    view.showElapsedTime(elapsedTimeString)
+  }
+
+  private fun getElapsedTimeString(time: Long): String {
+    val elapsedTime = time / 1000
+    val minutes = elapsedTime % 3600 / 60
+    val hours = elapsedTime / 3600
+    return String.format("%d:%d", hours, minutes)
+  }
+
+  private fun getTime(): Long {
+    return Calendar.getInstance(locale).timeInMillis
   }
 
 }
