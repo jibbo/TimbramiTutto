@@ -17,6 +17,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:padding="@dimen/double_padding"
+      android:animateLayoutChanges="true"
       android:background="@android:color/background_light"
       android:orientation="vertical">
 
@@ -55,11 +56,13 @@
         android:text="@string/time_elapsed" />
 
       <TextView
-        style="@style/TextAppearance.Timer"
+        style="@style/TextAppearance.Elapsed"
         android:id="@+id/main_time_elapsed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:text="@string/base_timer" />
 
     </LinearLayout>

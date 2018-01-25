@@ -67,11 +67,29 @@ class MainActivityPresenter(private val view: MainView, private val storage: ISt
     view.showElapsedTime(elapsedTimeString)
   }
 
-  private fun getElapsedTimeString(time: Long): String {
-    val elapsedTime = time / 1000
-    val minutes = elapsedTime % 3600 / 60
-    val hours = elapsedTime / 3600
-    return String.format("%d:%d", hours, minutes)
+  private fun getElapsedTimeString(elapsedTime: Long): String {
+    var time = elapsedTime / 1000
+    val seconds = time % 60
+    time /= 60
+    val minutes = time % 60
+    time /= 60
+    val hours = time % 24
+    time /= 24
+    val days = time
+    var out = ""
+    if (days > 0) {
+      out += "${days}g "
+    }
+    if (hours > 0) {
+      out += "${hours}o "
+    }
+    if (minutes > 0) {
+      out += "${minutes}m "
+    }
+    if (seconds > 0) {
+      out += "${seconds}s"
+    }
+    return out
   }
 
   private fun getTime(): Long {
