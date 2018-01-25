@@ -1,6 +1,6 @@
-package it.duir.timbramitutto
+package it.duir.timbramitutto.timer
 
-interface PunchView {
+interface TimerView {
   fun showPlayButton()
   fun showEndText(time: String)
   fun showStopButton()

@@ -1,11 +1,11 @@
-package it.duir.timbramitutto
+package it.duir.timbramitutto.timer
 
 import eu.giovannidefrancesco.easysharedprefslib.IStorage
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PunchFragmentPresenter(private val view: PunchView, private val storage: IStorage,
-                             private val locale: Locale) : PunchPresenter {
+class TimerFragmentPresenter(private val view: TimerView, private val storage: IStorage,
+                             private val locale: Locale) : TimerPresenter {
 
   companion object {
     val TIME_KEY = "timeInMillis"
@@ -19,7 +19,8 @@ class PunchFragmentPresenter(private val view: PunchView, private val storage: I
   private var started = false
 
   override fun viewResumed() {
-    storedTime = storage.get(TIME_KEY, BASE_TIME)
+    storedTime = storage.get(TIME_KEY,
+                             BASE_TIME)
     if (storedTime != BASE_TIME) {
       updateView(getFormattedTime(storedTime))
       started = true

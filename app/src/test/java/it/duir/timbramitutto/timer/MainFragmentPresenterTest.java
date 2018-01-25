@@ -1,4 +1,4 @@
-package it.duir.timbramitutto;
+package it.duir.timbramitutto.timer;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,33 +21,33 @@ import static org.mockito.Mockito.when;
 public class MainFragmentPresenterTest {
 
   @Mock private IStorage storage;
-  @Mock private PunchView view;
+  @Mock private TimerView view;
 
   private Locale locale;
-  private PunchPresenter presenter;
+  private TimerPresenter presenter;
 
   @Before
   public void setUp() {
     locale = Locale.getDefault();
-    presenter = new PunchFragmentPresenter(view, storage, locale);
+    presenter = new TimerFragmentPresenter(view, storage, locale);
   }
 
   @Test
   public void testViewResumed() {
-    when(storage.get(PunchFragmentPresenter.Companion.getTIME_KEY(),
-                     PunchFragmentPresenter.Companion.getBASE_TIME())).thenReturn(0L);
+    when(storage.get(TimerFragmentPresenter.Companion.getTIME_KEY(),
+                     TimerFragmentPresenter.Companion.getBASE_TIME())).thenReturn(0L);
     presenter.viewResumed();
-    verify(storage).get(PunchFragmentPresenter.Companion.getTIME_KEY(), PunchFragmentPresenter.Companion.getBASE_TIME());
+    verify(storage).get(TimerFragmentPresenter.Companion.getTIME_KEY(), TimerFragmentPresenter.Companion.getBASE_TIME());
     verify(view, never()).showStartText(anyString());
   }
 
   @Test
   public void testViewResumedWithTimeStored() {
     final long timeInMillis = Calendar.getInstance(locale).getTimeInMillis();
-    when(storage.get(PunchFragmentPresenter.Companion.getTIME_KEY(),
-                     PunchFragmentPresenter.Companion.getBASE_TIME())).thenReturn(timeInMillis);
+    when(storage.get(TimerFragmentPresenter.Companion.getTIME_KEY(),
+                     TimerFragmentPresenter.Companion.getBASE_TIME())).thenReturn(timeInMillis);
     presenter.viewResumed();
-    verify(storage).get(PunchFragmentPresenter.Companion.getTIME_KEY(), PunchFragmentPresenter.Companion.getBASE_TIME());
+    verify(storage).get(TimerFragmentPresenter.Companion.getTIME_KEY(), TimerFragmentPresenter.Companion.getBASE_TIME());
     verify(view).showStartText(anyString());
   }
 

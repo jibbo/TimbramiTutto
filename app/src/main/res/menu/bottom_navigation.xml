@@ -3,11 +3,13 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
+    android:id="@+id/action_timer"
     android:icon="@drawable/ic_timer"
     android:title="@string/timbratura"
     app:showAsAction="ifRoom"
     />
   <item
+    android:id="@+id/action_history"
     android:icon="@drawable/ic_list"
     android:title="@string/storico"
     app:showAsAction="ifRoom"
