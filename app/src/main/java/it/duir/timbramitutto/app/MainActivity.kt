@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*;
 class MainActivity : AppCompatActivity() {
 
   companion object {
-    val TIMER_TAG = "TAG_TIMER"
+    val TIMER_TAG = "TIMER_TAG"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
