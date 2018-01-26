@@ -34,6 +34,11 @@ class TimerFragment : Fragment(),
     presenter.viewResumed()
   }
 
+  override fun onPause() {
+    super.onPause()
+    presenter.viewPaused()
+  }
+
   override fun showStartText(time: String) {
     punch_begin_timer.text = time
   }

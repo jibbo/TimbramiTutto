@@ -19,12 +19,15 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
   private var started = false
 
   override fun viewResumed() {
-    storedTime = storage.get(TIME_KEY,
-                             BASE_TIME)
+    storedTime = storage.get(TIME_KEY, BASE_TIME)
     if (storedTime != BASE_TIME) {
       updateView(getFormattedTime(storedTime))
       started = true
     }
+  }
+
+  override fun viewPaused() {
+    started = false
   }
 
   override fun toggleTimer() {
