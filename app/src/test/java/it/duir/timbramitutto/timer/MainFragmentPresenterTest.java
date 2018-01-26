@@ -14,6 +14,7 @@ import eu.giovannidefrancesco.easysharedprefslib.IStorage;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -39,6 +40,16 @@ public class MainFragmentPresenterTest {
     presenter.viewResumed();
     verify(storage).get(TimerFragmentPresenter.Companion.getTIME_KEY(), TimerFragmentPresenter.Companion.getBASE_TIME());
     verify(view, never()).showStartText(anyString());
+  }
+
+  @Test
+  public void testViewResumedAfterPause() {
+    when(storage.get(TimerFragmentPresenter.Companion.getTIME_KEY(),
+                     TimerFragmentPresenter.Companion.getBASE_TIME())).thenReturn(1L);
+    presenter.viewPaused();
+    presenter.viewResumed();
+    verify(storage, times(2)).get(TimerFragmentPresenter.Companion.getTIME_KEY(), TimerFragmentPresenter.Companion.getBASE_TIME());
+    verify(view).showStartText(anyString());
   }
 
   @Test
