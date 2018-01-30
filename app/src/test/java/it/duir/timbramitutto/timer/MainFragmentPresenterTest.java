@@ -48,7 +48,7 @@ public class MainFragmentPresenterTest {
                      TimerFragmentPresenter.Companion.getBASE_TIME())).thenReturn(1L);
     presenter.viewPaused();
     presenter.viewResumed();
-    verify(storage, times(2)).get(TimerFragmentPresenter.Companion.getTIME_KEY(), TimerFragmentPresenter.Companion.getBASE_TIME());
+    verify(storage, times(1)).get(TimerFragmentPresenter.Companion.getTIME_KEY(), TimerFragmentPresenter.Companion.getBASE_TIME());
     verify(view).showStartText(anyString());
   }
 
