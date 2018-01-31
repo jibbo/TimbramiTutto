@@ -1,6 +1,9 @@
 package it.duir.timbramitutto.timer
 
-interface TimerPresenter {
+import android.arch.lifecycle.Observer
+import it.duir.timbramitutto.model.Punchcard
+
+interface TimerPresenter : Observer<Punchcard> {
   fun viewResumed()
   fun viewPaused()
   fun toggleTimer()

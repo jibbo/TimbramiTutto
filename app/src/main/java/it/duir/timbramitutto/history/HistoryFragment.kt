@@ -9,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.duir.timbramitutto.R
+import it.duir.timbramitutto.model.AppDatabase
 import it.duir.timbramitutto.model.Punchcard
+import it.duir.timbramitutto.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_history.*
 
 class HistoryFragment : Fragment(),
@@ -25,7 +27,10 @@ class HistoryFragment : Fragment(),
     super.onAttach(context)
     context?.let {
       layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-      historyViewModel = ViewModelProviders.of(this, HistoryViewModelFactory(context)).get(HistoryViewModel::class.java)
+      val punchcardDao = AppDatabase.getInstance(context).punchcardDao()
+      historyViewModel = ViewModelProviders
+          .of(this, ViewModelFactory(punchcardDao))
+          .get(HistoryViewModel::class.java)
       historyViewModel.history.observe(this, presenter)
     }
   }

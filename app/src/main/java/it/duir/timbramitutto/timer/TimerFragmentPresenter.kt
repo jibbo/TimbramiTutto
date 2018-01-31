@@ -33,6 +33,10 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
     started = false
   }
 
+  override fun onChanged(t: Punchcard?) {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+  }
+
   override fun toggleTimer() {
     val time = getTime()
     updateView(getFormattedTime(time))

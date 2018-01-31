@@ -6,5 +6,5 @@ import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.model.PunchcardDao
 
 class HistoryViewModel(punchCardDao: PunchcardDao) : ViewModel() {
-  val history: LiveData<List<Punchcard>> = punchCardDao.all
+  val history: LiveData<List<Punchcard>> = punchCardDao.getAll()
 }
