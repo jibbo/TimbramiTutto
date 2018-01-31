@@ -1,7 +1,5 @@
 package it.duir.timbramitutto.history
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +8,8 @@ import it.duir.timbramitutto.R
 import it.duir.timbramitutto.model.Punchcard
 import kotlinx.android.synthetic.main.item_history.view.*
 
-class HistoryAdapter(
-    private val history: LiveData<List<Punchcard>>) : RecyclerView.Adapter<HistoryAdapter.Companion.HistoryHolder>() {
+class HistoryAdapter(private val history: List<Punchcard>) :
+    RecyclerView.Adapter<HistoryAdapter.Companion.HistoryHolder>() {
 
 
   override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): HistoryHolder {
@@ -20,12 +18,11 @@ class HistoryAdapter(
   }
 
   override fun onBindViewHolder(holder: HistoryHolder?, position: Int) {
-    val punchCard = history.value?.get(position)
-    punchCard?.let { holder?.bindPunchCard(punchCard) }
+    holder?.bindPunchCard(history[position])
   }
 
   override fun getItemCount(): Int {
-    return history.value?.size ?: 0
+    return history.size
   }
 
   companion object {

@@ -1,11 +1,17 @@
 <resources>
+  <!-- General -->
   <string name="app_name">TimbramiTutto</string>
+  <string name="timbratura">Timbratura</string>
+  <string name="storico">Storico</string>
+
+  <!-- Timer -->
   <string name="start">Inizio</string>
   <string name="end">Fine</string>
   <string name="timer_start">Ora inizio:</string>
   <string name="base_timer">--:--</string>
   <string name="timer_end">Ora fine:</string>
   <string name="time_elapsed">Tempo trascorso:</string>
-  <string name="timbratura">Timbratura</string>
-  <string name="storico">Storico</string>
+
+  <!-- History -->
+  <string name="empty_history_msg">Completa una timbratura e\n verrà salvata nello storico!</string>
 </resources>

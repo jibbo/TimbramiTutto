@@ -6,4 +6,5 @@
   <dimen name="big_touch">72dp</dimen>
   <dimen name="timer_card_width">230dp</dimen>
   <dimen name="hack_negative_fab_margin">-24dp</dimen>
+  <dimen name="min_font_size">14sp</dimen>
 </resources>

@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:padding="@dimen/double_padding">
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/history_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:listitem="@layout/item_history" />
+    android:visibility="gone"
+    tools:listitem="@layout/item_history"
+    tools:visibility="visible" />
 
-</android.support.constraint.ConstraintLayout>
+  <TextView
+    android:id="@+id/history_empty_msg"
+    style="@style/TextAppearance.EmptyMessages"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:text="@string/empty_history_msg"
+    android:visibility="gone"
+    tools:visibility="visible" />
+
+</FrameLayout>

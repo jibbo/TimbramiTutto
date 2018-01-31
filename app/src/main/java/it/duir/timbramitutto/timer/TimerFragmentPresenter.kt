@@ -1,11 +1,14 @@
 package it.duir.timbramitutto.timer
 
+import android.arch.persistence.room.Dao
 import eu.giovannidefrancesco.easysharedprefslib.IStorage
+import it.duir.timbramitutto.model.Punchcard
+import it.duir.timbramitutto.model.PunchcardDao
 import java.text.SimpleDateFormat
 import java.util.*
 
 class TimerFragmentPresenter(private val view: TimerView, private val storage: IStorage,
-                             private val locale: Locale) : TimerPresenter {
+                             private val locale: Locale, private val punchcardDao: PunchcardDao) : TimerPresenter {
 
   companion object {
     val TIME_KEY = "timeInMillis"

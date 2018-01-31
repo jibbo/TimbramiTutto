@@ -1,5 +1,6 @@
 package it.duir.timbramitutto.timer
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,15 +10,24 @@ import android.view.View
 import android.view.ViewGroup
 import eu.giovannidefrancesco.easysharedprefslib.SharedPreferenceStorage
 import it.duir.timbramitutto.R
+import it.duir.timbramitutto.app.Application
 import kotlinx.android.synthetic.main.fragment_punch.*
 import java.util.*
 
 class TimerFragment : Fragment(),
                       TimerView {
 
-  private val presenter: TimerPresenter by lazy {
-    TimerFragmentPresenter(this, SharedPreferenceStorage(context, this.javaClass.name),
-                           Locale.getDefault())
+  private lateinit var presenter: TimerPresenter
+
+  override fun onAttach(context: Context?) {
+    super.onAttach(context)
+    val punchcardDao = (context?.applicationContext as Application).db.punchcardDao()
+    presenter = TimerFragmentPresenter(
+        this,
+        SharedPreferenceStorage(context, this.javaClass.name),
+        Locale.getDefault(),
+        punchcardDao
+    )
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

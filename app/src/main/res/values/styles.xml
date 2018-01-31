@@ -6,6 +6,7 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:windowBackground">@color/colorPrimary</item>
   </style>
 
   <style name="TextAppearance.Title" parent="TextAppearance.AppCompat.Body2">
@@ -24,5 +25,10 @@
 
   <style name="Widget.Button" parent="Widget.AppCompat.Button.Colored">
     <item name="android:minHeight">@dimen/big_touch</item>
+  </style>
+
+  <style name="TextAppearance.EmptyMessages" parent="TextAppearance.AppCompat.Display1">
+    <item name="android:textSize">@dimen/min_font_size</item>
+    <item name="android:textColor">@android:color/white</item>
   </style>
 </resources>

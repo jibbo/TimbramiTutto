@@ -9,9 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.duir.timbramitutto.R
+import it.duir.timbramitutto.model.Punchcard
 import kotlinx.android.synthetic.main.fragment_history.*
 
-class HistoryFragment : Fragment() {
+class HistoryFragment : Fragment(),
+                        HistoryView {
+
+  private val presenter: HistoryPresenter by lazy { HistoryFragmentPresenter(this) }
 
   private lateinit var historyViewModel: HistoryViewModel
   private lateinit var layoutManager: LinearLayoutManager
@@ -22,7 +26,7 @@ class HistoryFragment : Fragment() {
     context?.let {
       layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
       historyViewModel = ViewModelProviders.of(this, HistoryViewModelFactory(context)).get(HistoryViewModel::class.java)
-      adapter = HistoryAdapter(historyViewModel.history)
+      historyViewModel.history.observe(this, presenter)
     }
   }
 
@@ -33,6 +37,17 @@ class HistoryFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     history_list.layoutManager = layoutManager
+  }
+
+  override fun showHistory(list: List<Punchcard>) {
+    adapter = HistoryAdapter(list)
     history_list.adapter = adapter
+    history_empty_msg.visibility = View.GONE
+    history_list.visibility = View.VISIBLE
+  }
+
+  override fun showEmptyView() {
+    history_list.visibility = View.VISIBLE
+    history_empty_msg.visibility = View.VISIBLE
   }
 }
