@@ -4,6 +4,8 @@ import eu.giovannidefrancesco.easysharedprefslib.IStorage
 import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.model.PunchcardDao
 import it.duir.timbramitutto.utils.async
+import it.duir.timbramitutto.utils.toElapsedTimeString
+import it.duir.timbramitutto.utils.toFormattedTime
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,7 +27,7 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
   override fun viewResumed() {
     storedTime = storage.get(TIME_KEY, BASE_TIME)
     if (storedTime != BASE_TIME) {
-      updateView(getFormattedTime(storedTime))
+      updateView(storedTime.toFormattedTime())
       started = true
     }
   }
@@ -37,14 +39,14 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
   override fun toggleTimer() {
     val time = getTime()
     savePunchcard(time)
-    updateView(getFormattedTime(time))
+    updateView(time.toFormattedTime())
     updateStorage(time)
     started = !started
   }
 
   private fun savePunchcard(time: Long) {
     if (started) {
-      async{
+      async {
         punchcardDao.insert(Punchcard(storedTime, time))
       }
     }
@@ -72,41 +74,9 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
     }
   }
 
-  private fun getFormattedTime(timeInMillis: Long): String {
-    val calendar = Calendar.getInstance(locale)
-    calendar.timeInMillis = timeInMillis
-    return dateFormatter.format(calendar.time)
-  }
-
   private fun showElapsedTime() {
     val time = getTime() - storedTime
-    val elapsedTimeString = getElapsedTimeString(time)
-    view.showElapsedTime(elapsedTimeString)
-  }
-
-  private fun getElapsedTimeString(elapsedTime: Long): String {
-    var time = elapsedTime / 1000
-    val seconds = time % 60
-    time /= 60
-    val minutes = time % 60
-    time /= 60
-    val hours = time % 24
-    time /= 24
-    val days = time
-    var out = ""
-    if (days > 0) {
-      out += "${days}g "
-    }
-    if (hours > 0) {
-      out += "${hours}o "
-    }
-    if (minutes > 0) {
-      out += "${minutes}m "
-    }
-    if (seconds > 0) {
-      out += "${seconds}s"
-    }
-    return out
+    view.showElapsedTime(time.toElapsedTimeString())
   }
 
   private fun getTime(): Long {

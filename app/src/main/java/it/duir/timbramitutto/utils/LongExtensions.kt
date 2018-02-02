@@ -41,6 +41,8 @@ fun Long.toElapsedTimeString(): String {
   }
   if (seconds > 0) {
     out += "${seconds}s"
+  } else if (hours < 1 && minutes < 1) {
+    out += "1s"
   }
   return out
 }
