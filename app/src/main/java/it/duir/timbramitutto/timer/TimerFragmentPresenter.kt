@@ -1,9 +1,9 @@
 package it.duir.timbramitutto.timer
 
-import android.arch.persistence.room.Dao
 import eu.giovannidefrancesco.easysharedprefslib.IStorage
 import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.model.PunchcardDao
+import it.duir.timbramitutto.utils.async
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,15 +33,20 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
     started = false
   }
 
-  override fun onChanged(t: Punchcard?) {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
-
   override fun toggleTimer() {
     val time = getTime()
+    savePunchcard(time)
     updateView(getFormattedTime(time))
     updateStorage(time)
     started = !started
+  }
+
+  private fun savePunchcard(time: Long) {
+    if (started) {
+      async{
+        punchcardDao.insert(Punchcard(storedTime, time))
+      }
+    }
   }
 
   private fun updateStorage(time: Long) {
