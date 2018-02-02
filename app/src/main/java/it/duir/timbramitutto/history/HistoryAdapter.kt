@@ -11,7 +11,7 @@ import it.duir.timbramitutto.utils.toFormattedDate
 import it.duir.timbramitutto.utils.toFormattedTime
 import kotlinx.android.synthetic.main.item_history.view.*
 
-class HistoryAdapter(private val history: List<Punchcard>) :
+class HistoryAdapter(private val history: MutableList<Punchcard>) :
     RecyclerView.Adapter<HistoryAdapter.Companion.HistoryHolder>() {
 
 
@@ -28,17 +28,24 @@ class HistoryAdapter(private val history: List<Punchcard>) :
     return history.size
   }
 
+  fun removeItem(position: Int) {
+    history.removeAt(position)
+    notifyItemRemoved(position)
+  }
+
   companion object {
     class HistoryHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-      fun bindPunchCard(punchcard: Punchcard) {
+      lateinit var punchard: Punchcard
+      fun bindPunchCard(card: Punchcard) {
+        punchard = card
         val dateCaption = itemView.context.resources.getString(
             R.string.date_caption,
-            punchcard.begin?.toFormattedDate(),
-            punchcard.begin?.toFormattedTime(),
-            punchcard.end?.toFormattedTime()
+            card.begin?.toFormattedDate(),
+            card.begin?.toFormattedTime(),
+            card.end?.toFormattedTime()
         )
         itemView.item_date.text = dateCaption
-        itemView.item_elapsed_time.text = punchcard.elapsed?.toElapsedTimeString()
+        itemView.item_elapsed_time.text = card.elapsed?.toElapsedTimeString()
       }
     }
   }

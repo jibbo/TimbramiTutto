@@ -43,9 +43,7 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
 
   private fun savePunchcard(time: Long) {
     if (started) {
-      async {
-        punchcardDao.insert(Punchcard(storedTime, time))
-      }
+      async { punchcardDao.insert(Punchcard(storedTime, time)) }
     }
   }
 

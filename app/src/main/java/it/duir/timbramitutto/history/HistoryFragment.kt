@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,19 +18,23 @@ import it.duir.timbramitutto.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_history.*
 
 class HistoryFragment : Fragment(),
-                        HistoryView {
+                        HistoryView,
+                        SwipeListener {
 
-  private val presenter: HistoryPresenter by lazy { HistoryFragmentPresenter(this) }
 
   private lateinit var historyViewModel: HistoryViewModel
   private lateinit var layoutManager: LinearLayoutManager
   private lateinit var adapter: HistoryAdapter
+  private lateinit var presenter: HistoryPresenter
+
+  private val swipeHelper = SwipeDeleteItemHelper(this)
 
   override fun onAttach(context: Context?) {
     super.onAttach(context)
     context?.let {
       layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
       val punchcardDao = AppDatabase.getInstance(context).punchcardDao()
+      presenter = HistoryFragmentPresenter(this, punchcardDao)
       historyViewModel = ViewModelProviders
           .of(this, ViewModelFactory(punchcardDao))
           .get(HistoryViewModel::class.java)
@@ -47,10 +52,11 @@ class HistoryFragment : Fragment(),
     val dividerItemDecoration = DividerItemDecoration(view.context, layoutManager.orientation)
     ContextCompat.getDrawable(view.context, R.drawable.divider)?.let { dividerItemDecoration.setDrawable(it) }
     history_list.addItemDecoration(dividerItemDecoration)
+    ItemTouchHelper(swipeHelper).attachToRecyclerView(history_list)
   }
 
   override fun showHistory(list: List<Punchcard>) {
-    adapter = HistoryAdapter(list)
+    adapter = HistoryAdapter(list.toMutableList())
     history_list.adapter = adapter
     history_empty_msg.visibility = View.GONE
     history_list.visibility = View.VISIBLE
@@ -59,5 +65,13 @@ class HistoryFragment : Fragment(),
   override fun showEmptyView() {
     history_list.visibility = View.VISIBLE
     history_empty_msg.visibility = View.VISIBLE
+  }
+
+  override fun removeItem(position: Int) {
+    adapter.removeItem(position)
+  }
+
+  override fun onDelete(position: Int, punchcard: Punchcard) {
+    presenter.punchcardRemoved(position, punchcard)
   }
 }
