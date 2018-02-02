@@ -20,15 +20,11 @@ class TimerFragment : Fragment(),
                       TimerView {
 
   private lateinit var presenter: TimerPresenter
-  private lateinit var punchcardViewModel: PunchcardViewModel
 
   override fun onAttach(context: Context?) {
     super.onAttach(context)
     context?.let {
       val punchcardDao = AppDatabase.getInstance(context).punchcardDao()
-      punchcardViewModel = ViewModelProviders
-          .of(this, ViewModelFactory(punchcardDao))
-          .get(PunchcardViewModel::class.java)
       presenter = TimerFragmentPresenter(
           this,
           SharedPreferenceStorage(context, this.javaClass.name),
