@@ -14,4 +14,5 @@
 
   <!-- History -->
   <string name="empty_history_msg">Completa una timbratura e\n verrà salvata nello storico!</string>
+  <string name="date_caption">%1$s %2$s - %3$s</string>
 </resources>

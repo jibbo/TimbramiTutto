@@ -31,9 +31,13 @@ class HistoryAdapter(private val history: List<Punchcard>) :
   companion object {
     class HistoryHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
       fun bindPunchCard(punchcard: Punchcard) {
-        itemView.item_date.text = punchcard.begin?.toFormattedDate()
-        itemView.item_begin_time.text = punchcard.begin?.toFormattedTime()
-        itemView.item_end_time.text = punchcard.end?.toFormattedTime()
+        val dateCaption = itemView.context.resources.getString(
+            R.string.date_caption,
+            punchcard.begin?.toFormattedDate(),
+            punchcard.begin?.toFormattedTime(),
+            punchcard.end?.toFormattedTime()
+        )
+        itemView.item_date.text = dateCaption
         itemView.item_elapsed_time.text = punchcard.elapsed?.toElapsedTimeString()
       }
     }

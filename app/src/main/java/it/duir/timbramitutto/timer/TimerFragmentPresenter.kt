@@ -6,7 +6,6 @@ import it.duir.timbramitutto.model.PunchcardDao
 import it.duir.timbramitutto.utils.async
 import it.duir.timbramitutto.utils.toElapsedTimeString
 import it.duir.timbramitutto.utils.toFormattedTime
-import java.text.SimpleDateFormat
 import java.util.*
 
 class TimerFragmentPresenter(private val view: TimerView, private val storage: IStorage,
@@ -18,8 +17,6 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
     val DATE_FORMAT = "dd/MM/yy"
     val BASE_TIME = 0L
   }
-
-  private val dateFormatter = SimpleDateFormat(TIME_FORMAT, locale)
 
   private var storedTime = BASE_TIME
   private var started = false
