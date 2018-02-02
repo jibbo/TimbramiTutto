@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import it.duir.timbramitutto.R
 import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.utils.toElapsedTimeString
+import it.duir.timbramitutto.utils.toFormattedDate
 import it.duir.timbramitutto.utils.toFormattedTime
 import kotlinx.android.synthetic.main.item_history.view.*
 
@@ -30,6 +31,7 @@ class HistoryAdapter(private val history: List<Punchcard>) :
   companion object {
     class HistoryHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
       fun bindPunchCard(punchcard: Punchcard) {
+        itemView.item_date.text = punchcard.begin?.toFormattedDate()
         itemView.item_begin_time.text = punchcard.begin?.toFormattedTime()
         itemView.item_end_time.text = punchcard.end?.toFormattedTime()
         itemView.item_elapsed_time.text = punchcard.elapsed?.toElapsedTimeString()

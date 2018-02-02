@@ -9,7 +9,7 @@ interface PunchcardDao {
   @Query("SELECT * FROM Punchcard WHERE id=(:punchcardId)")
   fun getOne(punchcardId: Long): LiveData<Punchcard>
 
-  @Query("SELECT * FROM Punchcard")
+  @Query("SELECT * FROM Punchcard ORDER BY begin DESC ")
   fun getAll(): LiveData<List<Punchcard>>
 
   @Insert

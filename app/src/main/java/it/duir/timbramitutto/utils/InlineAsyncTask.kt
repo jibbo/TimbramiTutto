@@ -1,7 +1,6 @@
 package it.duir.timbramitutto.utils
 
 import android.os.AsyncTask
-import it.duir.timbramitutto.R
 
 fun <R> async(body: () -> R) = InlineAsyncTask<Void, R>(body).execute()
 

@@ -7,4 +7,6 @@
   <dimen name="timer_card_width">230dp</dimen>
   <dimen name="hack_negative_fab_margin">-24dp</dimen>
   <dimen name="min_font_size">14sp</dimen>
+  <dimen name="divider_height">6dp</dimen>
+  <dimen name="bottom_navigation_height">56dp</dimen>
 </resources>

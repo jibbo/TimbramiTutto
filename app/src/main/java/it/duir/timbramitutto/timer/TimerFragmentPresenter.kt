@@ -13,6 +13,7 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
   companion object {
     val TIME_KEY = "timeInMillis"
     val TIME_FORMAT = "HH:mm"
+    val DATE_FORMAT = "dd/MM/yy"
     val BASE_TIME = 0L
   }
 

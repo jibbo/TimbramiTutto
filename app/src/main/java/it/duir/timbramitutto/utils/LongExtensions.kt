@@ -4,6 +4,14 @@ import it.duir.timbramitutto.timer.TimerFragmentPresenter
 import java.text.SimpleDateFormat
 import java.util.*
 
+fun Long.toFormattedDate(): String {
+  val locale = Locale.getDefault()
+  val dateFormatter = SimpleDateFormat(TimerFragmentPresenter.DATE_FORMAT, locale)
+  val calendar = Calendar.getInstance(locale)
+  calendar.timeInMillis = this
+  return dateFormatter.format(calendar.time)
+}
+
 fun Long.toFormattedTime(): String {
   val locale = Locale.getDefault()
   val dateFormatter = SimpleDateFormat(TimerFragmentPresenter.TIME_FORMAT, locale)

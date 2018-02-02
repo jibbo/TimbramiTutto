@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +44,9 @@ class HistoryFragment : Fragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     history_list.layoutManager = layoutManager
+    val dividerItemDecoration = DividerItemDecoration(view.context, layoutManager.orientation)
+    ContextCompat.getDrawable(view.context, R.drawable.divider)?.let { dividerItemDecoration.setDrawable(it) }
+    history_list.addItemDecoration(dividerItemDecoration)
   }
 
   override fun showHistory(list: List<Punchcard>) {

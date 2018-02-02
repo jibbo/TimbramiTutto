@@ -11,6 +11,7 @@
 
   <style name="TextAppearance.Title" parent="TextAppearance.AppCompat.Body2">
     <item name="android:textColor">@color/colorPrimary</item>
+    <item name="android:paddingRight">@dimen/default_padding</item>
   </style>
 
   <style name="TextAppearance.Timer" parent="TextAppearance.AppCompat.Display3">
