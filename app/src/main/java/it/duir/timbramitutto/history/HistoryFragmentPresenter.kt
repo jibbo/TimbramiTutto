@@ -20,4 +20,12 @@ class HistoryFragmentPresenter(private val view: HistoryView,
     view.removeItem(position)
   }
 
+  override fun topOverScroll() {
+    view.showSearch()
+  }
+
+  override fun topOverScrollEnded() {
+    view.hideSearch()
+  }
+
 }

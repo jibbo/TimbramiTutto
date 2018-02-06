@@ -6,4 +6,6 @@ interface HistoryView {
   fun showHistory(list: List<Punchcard>)
   fun showEmptyView()
   fun removeItem(position: Int)
+  fun showSearch()
+  fun hideSearch()
 }

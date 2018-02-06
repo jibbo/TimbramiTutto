@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.fragment_history.*
 
 class HistoryFragment : Fragment(),
                         HistoryView,
-                        SwipeListener {
-
+                        SwipeListener,
+                        TopOverScrollListener {
 
   private lateinit var historyViewModel: HistoryViewModel
   private lateinit var layoutManager: LinearLayoutManager
@@ -32,7 +32,7 @@ class HistoryFragment : Fragment(),
   override fun onAttach(context: Context?) {
     super.onAttach(context)
     context?.let {
-      layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+      layoutManager = LinearLayoutOverscrollManager(context, LinearLayoutManager.VERTICAL, false, this)
       val punchcardDao = AppDatabase.getInstance(context).punchcardDao()
       presenter = HistoryFragmentPresenter(this, punchcardDao)
       historyViewModel = ViewModelProviders
@@ -73,5 +73,21 @@ class HistoryFragment : Fragment(),
 
   override fun onDelete(position: Int, punchcard: Punchcard) {
     presenter.punchcardRemoved(position, punchcard)
+  }
+
+  override fun showSearch() {
+    history_search.visibility = View.VISIBLE
+  }
+
+  override fun hideSearch() {
+    history_search.visibility = View.GONE
+  }
+
+  override fun onTopOverScroll() {
+    presenter.topOverScroll()
+  }
+
+  override fun onTopOverScrollEnded() {
+    presenter.topOverScrollEnded()
   }
 }

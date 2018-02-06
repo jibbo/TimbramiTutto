@@ -16,7 +16,7 @@
     android:clipToPadding="false"
     android:visibility="gone"
     tools:listitem="@layout/item_history"
-    tools:visibility="visible" />
+    tools:visibility="invisible" />
 
   <TextView
     style="@style/TextAppearance.EmptyMessages"
@@ -26,6 +26,22 @@
     android:gravity="center"
     android:text="@string/empty_history_msg"
     android:textStyle="bold"
+    android:visibility="gone"
+    tools:visibility="visible" />
+
+  <EditText
+    android:id="@+id/history_search"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/default_padding"
+    android:padding="@dimen/default_padding"
+    android:background="@drawable/search_background"
+    android:clickable="true"
+    android:drawableEnd="@drawable/ic_search"
+    android:drawableRight="@drawable/ic_search"
+    android:focusable="true"
+    android:hint="@string/search"
+    android:textSize="16sp"
     android:visibility="gone"
     tools:visibility="visible" />
 
