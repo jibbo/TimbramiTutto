@@ -14,7 +14,7 @@ class LinearLayoutOverscrollManager(context: Context?, orientation: Int, reverse
     if (overscroll < 0) {
       listener.onTopOverScroll()
     }
-    if(overscroll==0){
+    if (overscroll == 0) {
       listener.onTopOverScrollEnded()
     }
     return super.scrollVerticallyBy(dy, recycler, state)
