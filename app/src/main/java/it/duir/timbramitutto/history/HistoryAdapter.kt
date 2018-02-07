@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.duir.timbramitutto.R
+import it.duir.timbramitutto.app.Application.Companion.DATE_FORMAT
+import it.duir.timbramitutto.app.Application.Companion.TIME_FORMAT
 import it.duir.timbramitutto.model.Punchcard
-import it.duir.timbramitutto.timer.TimerFragmentPresenter
 import it.duir.timbramitutto.utils.toElapsedTimeString
 import it.duir.timbramitutto.utils.toFormattedDate
 import it.duir.timbramitutto.utils.toFormattedTime
@@ -41,9 +42,9 @@ class HistoryAdapter(private val history: MutableList<Punchcard>) :
         punchard = card
         val dateCaption = itemView.context.resources.getString(
             R.string.date_caption,
-            card.begin?.toFormattedDate(TimerFragmentPresenter.DATE_FORMAT),
-            card.begin?.toFormattedTime(TimerFragmentPresenter.TIME_FORMAT),
-            card.end?.toFormattedTime(TimerFragmentPresenter.TIME_FORMAT)
+            card.begin?.toFormattedDate(DATE_FORMAT),
+            card.begin?.toFormattedTime(TIME_FORMAT),
+            card.end?.toFormattedTime(TIME_FORMAT)
         )
         itemView.item_date.text = dateCaption
         itemView.item_elapsed_time.text = card.elapsed?.toElapsedTimeString()

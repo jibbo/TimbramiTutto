@@ -1,6 +1,9 @@
 package it.duir.timbramitutto.timer
 
 import eu.giovannidefrancesco.easysharedprefslib.IStorage
+import it.duir.timbramitutto.app.Application.Companion.BASE_TIME
+import it.duir.timbramitutto.app.Application.Companion.TIME_FORMAT
+import it.duir.timbramitutto.app.Application.Companion.TIME_KEY
 import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.model.PunchcardDao
 import it.duir.timbramitutto.utils.async
@@ -10,13 +13,6 @@ import java.util.*
 
 class TimerFragmentPresenter(private val view: TimerView, private val storage: IStorage,
                              private val locale: Locale, private val punchcardDao: PunchcardDao) : TimerPresenter {
-
-  companion object {
-    val TIME_KEY = "timeInMillis"
-    val TIME_FORMAT = "HH:mm"
-    val DATE_FORMAT = "dd/MM/yy"
-    val BASE_TIME = 0L
-  }
 
   private var storedTime = BASE_TIME
   private var started = false

@@ -1,8 +1,8 @@
 package it.duir.timbramitutto.history
 
+import it.duir.timbramitutto.app.Application.Companion.DATE_FORMAT
 import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.model.PunchcardDao
-import it.duir.timbramitutto.timer.TimerFragmentPresenter
 import it.duir.timbramitutto.utils.async
 import it.duir.timbramitutto.utils.toDateTime
 
@@ -28,7 +28,7 @@ class HistoryFragmentPresenter(private val view: HistoryView,
 
   override fun searchTermChanged(searchTerm: String) {
     if (isLookingForDate(searchTerm)) {
-      val time = searchTerm.toDateTime(TimerFragmentPresenter.DATE_FORMAT)
+      val time = searchTerm.toDateTime(DATE_FORMAT)
       async { view.updateSearchTerm(time) }
     } else {
       async { view.updateSearchTerm(null) }

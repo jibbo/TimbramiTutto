@@ -37,33 +37,33 @@ public class MainFragmentPresenterTest {
 
   @Test
   public void testViewResumed() {
-    when(storage.get(TimerFragmentPresenter.Companion.getPUNCHCARD_ID(),
-                     TimerFragmentPresenter.Companion.getBASE_TIME())).thenReturn(0L);
+    when(storage.get(TimerFragmentPresenter.getPUNCHCARD_ID(),
+                     TimerFragmentPresenter.getBASE_TIME())).thenReturn(0L);
     presenter.viewResumed();
-    verify(storage).get(TimerFragmentPresenter.Companion.getPUNCHCARD_ID(),
-                        TimerFragmentPresenter.Companion.getBASE_TIME());
+    verify(storage).get(TimerFragmentPresenter.getPUNCHCARD_ID(),
+                        TimerFragmentPresenter.getBASE_TIME());
     verify(view, never()).showStartText(anyString());
   }
 
   @Test
   public void testViewResumedAfterPause() {
-    when(storage.get(TimerFragmentPresenter.Companion.getPUNCHCARD_ID(),
-                     TimerFragmentPresenter.Companion.getBASE_TIME())).thenReturn(1L);
+    when(storage.get(TimerFragmentPresenter.getPUNCHCARD_ID(),
+                     TimerFragmentPresenter.getBASE_TIME())).thenReturn(1L);
     presenter.viewPaused();
     presenter.viewResumed();
-    verify(storage, times(1)).get(TimerFragmentPresenter.Companion.getPUNCHCARD_ID(),
-                                  TimerFragmentPresenter.Companion.getBASE_TIME());
+    verify(storage, times(1)).get(TimerFragmentPresenter.getPUNCHCARD_ID(),
+                                  TimerFragmentPresenter.getBASE_TIME());
     verify(view).showStartText(anyString());
   }
 
   @Test
   public void testViewResumedWithTimeStored() {
     final long timeInMillis = Calendar.getInstance(locale).getTimeInMillis();
-    when(storage.get(TimerFragmentPresenter.Companion.getPUNCHCARD_ID(),
-                     TimerFragmentPresenter.Companion.getBASE_TIME())).thenReturn(timeInMillis);
+    when(storage.get(TimerFragmentPresenter.getPUNCHCARD_ID(),
+                     TimerFragmentPresenter.getBASE_TIME())).thenReturn(timeInMillis);
     presenter.viewResumed();
-    verify(storage).get(TimerFragmentPresenter.Companion.getPUNCHCARD_ID(),
-                        TimerFragmentPresenter.Companion.getBASE_TIME());
+    verify(storage).get(TimerFragmentPresenter.getPUNCHCARD_ID(),
+                        TimerFragmentPresenter.getBASE_TIME());
     verify(view).showStartText(anyString());
   }
 

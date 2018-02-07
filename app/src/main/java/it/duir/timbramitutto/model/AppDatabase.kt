@@ -11,7 +11,7 @@ abstract class AppDatabase : RoomDatabase() {
   abstract fun punchcardDao(): PunchcardDao
 
   companion object {
-    private val DB_NAME = "punchcard_history"
+    private const val DB_NAME = "punchcard_history"
     private var INSTANCE: AppDatabase? = null
 
     fun getInstance(context: Context): AppDatabase = INSTANCE ?: buildDb(context).also { INSTANCE = it }
