@@ -87,8 +87,8 @@ class HistoryFragment : Fragment(),
     history_search.visibility = View.GONE
   }
 
-  override fun updateSearchTerm(time: Long?) {
-    historyViewModel.history(time).observe(this, presenter)
+  override fun updateSearchTerm(searchTerm: String?) {
+    historyViewModel.history(searchTerm).observe(this, presenter)
   }
 
   override fun onTopOverScroll() {

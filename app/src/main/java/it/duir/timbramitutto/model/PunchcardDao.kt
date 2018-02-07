@@ -12,8 +12,8 @@ interface PunchcardDao {
   @Query("SELECT * FROM Punchcard ORDER BY begin DESC ")
   fun getAll(): LiveData<List<Punchcard>>
 
-  @Query("SELECT * FROM Punchcard WHERE begin>=(:time) AND end<=(:time)")
-  fun find(time: Long): LiveData<List<Punchcard>>
+  @Query("SELECT * FROM Punchcard WHERE dateString=(:date)")
+  fun find(date: String): LiveData<List<Punchcard>>
 
   @Insert
   fun insert(punchcard: Punchcard): Long

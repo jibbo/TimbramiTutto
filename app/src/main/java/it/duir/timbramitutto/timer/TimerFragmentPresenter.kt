@@ -8,7 +8,7 @@ import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.model.PunchcardDao
 import it.duir.timbramitutto.utils.async
 import it.duir.timbramitutto.utils.toElapsedTimeString
-import it.duir.timbramitutto.utils.toFormattedTime
+import it.duir.timbramitutto.utils.asFormattedDate
 import java.util.*
 
 class TimerFragmentPresenter(private val view: TimerView, private val storage: IStorage,
@@ -20,7 +20,7 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
   override fun viewResumed() {
     storedTime = storage.get(TIME_KEY, BASE_TIME)
     if (storedTime != BASE_TIME) {
-      updateView(storedTime.toFormattedTime(TIME_FORMAT))
+      updateView(storedTime.asFormattedDate(TIME_FORMAT))
       started = true
     }
   }
@@ -32,7 +32,7 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
   override fun toggleTimer() {
     val time = getTime()
     savePunchcard(time)
-    updateView(time.toFormattedTime(TIME_FORMAT))
+    updateView(time.asFormattedDate(TIME_FORMAT))
     updateStorage(time)
     started = !started
   }

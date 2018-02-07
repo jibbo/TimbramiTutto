@@ -6,8 +6,8 @@ import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.model.PunchcardDao
 
 class HistoryViewModel(private val punchCardDao: PunchcardDao) : ViewModel() {
-  fun history(time: Long?): LiveData<List<Punchcard>> = if (time != null) {
-    punchCardDao.find(time)
+  fun history(searchTerm: String?): LiveData<List<Punchcard>> = if (searchTerm != null) {
+    punchCardDao.find(searchTerm)
   } else {
     punchCardDao.getAll()
   }

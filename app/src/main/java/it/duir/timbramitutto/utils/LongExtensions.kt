@@ -3,15 +3,7 @@ package it.duir.timbramitutto.utils
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Long.toFormattedDate(pattern: String): String {
-  val locale = Locale.getDefault()
-  val dateFormatter = SimpleDateFormat(pattern, locale)
-  val calendar = Calendar.getInstance(locale)
-  calendar.timeInMillis = this
-  return dateFormatter.format(calendar.time)
-}
-
-fun Long.toFormattedTime(pattern: String): String {
+fun Long.asFormattedDate(pattern: String): String {
   val locale = Locale.getDefault()
   val dateFormatter = SimpleDateFormat(pattern, locale)
   val calendar = Calendar.getInstance(locale)

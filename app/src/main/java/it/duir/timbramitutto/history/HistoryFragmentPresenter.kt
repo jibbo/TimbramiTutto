@@ -27,9 +27,8 @@ class HistoryFragmentPresenter(private val view: HistoryView,
   }
 
   override fun searchTermChanged(searchTerm: String) {
-    if (isLookingForDate(searchTerm)) {
-      val time = searchTerm.toDateTime(DATE_FORMAT)
-      async { view.updateSearchTerm(time) }
+    if (searchTerm.isNotEmpty()) {
+      async { view.updateSearchTerm(searchTerm) }
     } else {
       async { view.updateSearchTerm(null) }
     }
@@ -41,11 +40,6 @@ class HistoryFragmentPresenter(private val view: HistoryView,
     } else {
       view.showHistory(list)
     }
-  }
-
-  private fun isLookingForDate(searchTerm: String): Boolean {
-    val searchTermArr = searchTerm.split("/")
-    return searchTermArr.size == 3 && searchTermArr[2].length == 2
   }
 
 }
