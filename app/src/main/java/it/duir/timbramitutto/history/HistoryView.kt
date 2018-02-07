@@ -8,4 +8,5 @@ interface HistoryView {
   fun removeItem(position: Int)
   fun showSearch()
   fun hideSearch()
+  fun updateSearchTerm(time: Long?)
 }

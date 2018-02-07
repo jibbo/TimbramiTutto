@@ -24,7 +24,7 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
   override fun viewResumed() {
     storedTime = storage.get(TIME_KEY, BASE_TIME)
     if (storedTime != BASE_TIME) {
-      updateView(storedTime.toFormattedTime())
+      updateView(storedTime.toFormattedTime(TIME_FORMAT))
       started = true
     }
   }
@@ -36,7 +36,7 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
   override fun toggleTimer() {
     val time = getTime()
     savePunchcard(time)
-    updateView(time.toFormattedTime())
+    updateView(time.toFormattedTime(TIME_FORMAT))
     updateStorage(time)
     started = !started
   }

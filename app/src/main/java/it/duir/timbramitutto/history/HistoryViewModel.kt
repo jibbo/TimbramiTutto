@@ -5,6 +5,10 @@ import android.arch.lifecycle.ViewModel
 import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.model.PunchcardDao
 
-class HistoryViewModel(punchCardDao: PunchcardDao) : ViewModel() {
-  val history: LiveData<List<Punchcard>> = punchCardDao.getAll()
+class HistoryViewModel(private val punchCardDao: PunchcardDao) : ViewModel() {
+  fun history(time: Long?): LiveData<List<Punchcard>> = if (time != null) {
+    punchCardDao.find(time)
+  } else {
+    punchCardDao.getAll()
+  }
 }

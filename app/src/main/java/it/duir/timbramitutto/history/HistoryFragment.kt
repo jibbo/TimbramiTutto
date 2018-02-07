@@ -8,6 +8,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +22,8 @@ import kotlinx.android.synthetic.main.fragment_history.*
 class HistoryFragment : Fragment(),
                         HistoryView,
                         SwipeListener,
-                        TopOverScrollListener {
+                        TopOverScrollListener,
+                        TextWatcher {
 
   private lateinit var historyViewModel: HistoryViewModel
   private lateinit var layoutManager: LinearLayoutManager
@@ -34,11 +37,10 @@ class HistoryFragment : Fragment(),
     context?.let {
       layoutManager = LinearLayoutOverscrollManager(context, LinearLayoutManager.VERTICAL, false, this)
       val punchcardDao = AppDatabase.getInstance(context).punchcardDao()
-      presenter = HistoryFragmentPresenter(this, punchcardDao)
       historyViewModel = ViewModelProviders
           .of(this, ViewModelFactory(punchcardDao))
           .get(HistoryViewModel::class.java)
-      historyViewModel.history.observe(this, presenter)
+      presenter = HistoryFragmentPresenter(this, punchcardDao)
     }
   }
 
@@ -53,6 +55,8 @@ class HistoryFragment : Fragment(),
     ContextCompat.getDrawable(view.context, R.drawable.divider)?.let { dividerItemDecoration.setDrawable(it) }
     history_list.addItemDecoration(dividerItemDecoration)
     ItemTouchHelper(swipeHelper).attachToRecyclerView(history_list)
+    history_search.addTextChangedListener(this)
+    presenter.viewReady()
   }
 
   override fun showHistory(list: List<Punchcard>) {
@@ -63,7 +67,7 @@ class HistoryFragment : Fragment(),
   }
 
   override fun showEmptyView() {
-    history_list.visibility = View.VISIBLE
+    history_list.visibility = View.GONE
     history_empty_msg.visibility = View.VISIBLE
   }
 
@@ -83,11 +87,27 @@ class HistoryFragment : Fragment(),
     history_search.visibility = View.GONE
   }
 
+  override fun updateSearchTerm(time: Long?) {
+    historyViewModel.history(time).observe(this, presenter)
+  }
+
   override fun onTopOverScroll() {
     presenter.topOverScroll()
   }
 
   override fun onTopOverScrollEnded() {
     presenter.topOverScrollEnded()
+  }
+
+  override fun afterTextChanged(editable: Editable?) {
+    editable?.let { presenter.searchTermChanged(editable.toString()) }
+  }
+
+  override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    //not needed
+  }
+
+  override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    // not needed
   }
 }

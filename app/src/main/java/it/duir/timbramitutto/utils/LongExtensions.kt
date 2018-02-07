@@ -1,20 +1,19 @@
 package it.duir.timbramitutto.utils
 
-import it.duir.timbramitutto.timer.TimerFragmentPresenter
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Long.toFormattedDate(): String {
+fun Long.toFormattedDate(pattern: String): String {
   val locale = Locale.getDefault()
-  val dateFormatter = SimpleDateFormat(TimerFragmentPresenter.DATE_FORMAT, locale)
+  val dateFormatter = SimpleDateFormat(pattern, locale)
   val calendar = Calendar.getInstance(locale)
   calendar.timeInMillis = this
   return dateFormatter.format(calendar.time)
 }
 
-fun Long.toFormattedTime(): String {
+fun Long.toFormattedTime(pattern: String): String {
   val locale = Locale.getDefault()
-  val dateFormatter = SimpleDateFormat(TimerFragmentPresenter.TIME_FORMAT, locale)
+  val dateFormatter = SimpleDateFormat(pattern, locale)
   val calendar = Calendar.getInstance(locale)
   calendar.timeInMillis = this
   return dateFormatter.format(calendar.time)
