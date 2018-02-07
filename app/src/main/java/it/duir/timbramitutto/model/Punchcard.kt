@@ -12,7 +12,7 @@ data class Punchcard(@PrimaryKey(autoGenerate = true) var id: Long? = null,
                      var end: Long? = null,
                      var elapsed: Long? = null) {
 
-  var dateString: String? = null
+  var dateString: String? = ""
 
   constructor(begin: Long, end: Long) : this(begin = begin, end = end, elapsed = end - begin)
 

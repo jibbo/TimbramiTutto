@@ -28,7 +28,8 @@ class HistoryFragmentPresenter(private val view: HistoryView,
 
   override fun searchTermChanged(searchTerm: String) {
     if (searchTerm.isNotEmpty()) {
-      async { view.updateSearchTerm(searchTerm) }
+      val queryTerm = "%$searchTerm%"
+      async { view.updateSearchTerm(queryTerm) }
     } else {
       async { view.updateSearchTerm(null) }
     }
