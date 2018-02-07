@@ -8,8 +8,8 @@ import it.duir.timbramitutto.R
 import it.duir.timbramitutto.app.Application.Companion.DATE_FORMAT
 import it.duir.timbramitutto.app.Application.Companion.TIME_FORMAT
 import it.duir.timbramitutto.model.Punchcard
-import it.duir.timbramitutto.utils.toElapsedTimeString
 import it.duir.timbramitutto.utils.asFormattedDate
+import it.duir.timbramitutto.utils.toElapsedTimeString
 import kotlinx.android.synthetic.main.item_history.view.*
 
 class HistoryAdapter(private val history: MutableList<Punchcard>) :

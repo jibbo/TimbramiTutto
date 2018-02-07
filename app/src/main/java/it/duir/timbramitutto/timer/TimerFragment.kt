@@ -1,6 +1,5 @@
 package it.duir.timbramitutto.timer
 
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import eu.giovannidefrancesco.easysharedprefslib.SharedPreferenceStorage
 import it.duir.timbramitutto.R
 import it.duir.timbramitutto.model.AppDatabase
-import it.duir.timbramitutto.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_punch.*
 import java.util.*
 
