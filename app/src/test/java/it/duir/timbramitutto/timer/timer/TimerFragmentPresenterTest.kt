@@ -8,10 +8,13 @@ import it.duir.timbramitutto.timer.TimerFragmentPresenter
 import it.duir.timbramitutto.timer.TimerFragmentPresenter.Companion.TIME_KEY
 import it.duir.timbramitutto.timer.TimerView
 import it.duir.timbramitutto.timer.timer.helpers.eq
+import it.duir.timbramitutto.utils.toElapsedTimeString
 import kotlinx.coroutines.experimental.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -120,5 +123,33 @@ class TimerFragmentPresenterTest {
     savePunchcardIfNecessary?.join()
     verify(punchcardDao, never()).insert(eq(Punchcard(presenter.storedTime, time)))
   }
+
+  @Test
+  fun testResetStorage(){
+    presenter.started = true
+    presenter.updateStorage(200)
+
+    verify(storage).reset()
+  }
+
+
+  @Test
+  fun testUpdateStorage(){
+    presenter.started = false
+    val time: Long = 200
+
+    presenter.updateStorage(time)
+    verify(storage).store(eq(TimerFragmentPresenter.TIME_KEY), anyLong())
+  }
+
+  @Test
+  fun testComputeElapsedTime(){
+    val storedTime: Long = 200
+    val time: Long = 400
+    val computeElapsedTime = presenter.computeElapsedTime(storedTime, time)
+    val expected = (time - storedTime).toElapsedTimeString()
+    assertEquals(expected, computeElapsedTime)
+  }
+
 }
 

@@ -53,7 +53,7 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
     if (started) {
       view.showPlayButton()
       view.showEndText(timeString)
-      showElapsedTime()
+      view.showElapsedTime(computeElapsedTime(storedTime, getTime()))
     } else {
       view.showStopButton()
       view.showStartText(timeString)
@@ -81,13 +81,9 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
   }
 
   @VisibleForTesting
-  fun showElapsedTime() {
-    val time = getTime() - storedTime
-    view.showElapsedTime(time.toElapsedTimeString())
-  }
+  fun computeElapsedTime(storedTime: Long, time: Long) = ((time - storedTime)).toElapsedTimeString()
 
-  @VisibleForTesting
-  fun getTime(): Long {
+  private fun getTime(): Long {
     return Calendar.getInstance(locale).timeInMillis
   }
 
