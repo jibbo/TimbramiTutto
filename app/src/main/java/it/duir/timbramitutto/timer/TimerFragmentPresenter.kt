@@ -1,13 +1,16 @@
 package it.duir.timbramitutto.timer
 
+import android.annotation.SuppressLint
+import android.support.annotation.VisibleForTesting
 import eu.giovannidefrancesco.easysharedprefslib.IStorage
 import it.duir.timbramitutto.app.Application.Companion.BASE_TIME
 import it.duir.timbramitutto.app.Application.Companion.TIME_FORMAT
 import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.model.PunchcardDao
 import it.duir.timbramitutto.utils.asFormattedDate
-import it.duir.timbramitutto.utils.async
 import it.duir.timbramitutto.utils.toElapsedTimeString
+import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.experimental.async
 import java.util.*
 
 class TimerFragmentPresenter(private val view: TimerView, private val storage: IStorage,
@@ -17,9 +20,13 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
     const val TIME_KEY = "timeInMillis"
   }
 
-  private var storedTime = BASE_TIME
-  private var started = false
+  @VisibleForTesting
+  var storedTime = BASE_TIME
 
+  @VisibleForTesting
+  var started = false
+
+  @SuppressLint("VisibleForTests")
   override fun viewResumed() {
     storedTime = storage.get(TIME_KEY, BASE_TIME)
     if (storedTime != BASE_TIME) {
@@ -32,30 +39,17 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
     started = false
   }
 
+  @SuppressLint("VisibleForTests")
   override fun toggleTimer() {
     val time = getTime()
-    savePunchcard(time)
+    savePunchcardIfNecessary(time)
     updateView(time.asFormattedDate(TIME_FORMAT))
     updateStorage(time)
     started = !started
   }
 
-  private fun savePunchcard(time: Long) {
-    if (started) {
-      async { punchcardDao.insert(Punchcard(storedTime, time)) }
-    }
-  }
-
-  private fun updateStorage(time: Long) {
-    if (started) {
-      storage.reset()
-    } else {
-      storedTime = time
-      storage.store(TIME_KEY, getTime())
-    }
-  }
-
-  private fun updateView(timeString: String) {
+  @VisibleForTesting
+  fun updateView(timeString: String) {
     if (started) {
       view.showPlayButton()
       view.showEndText(timeString)
@@ -68,12 +62,32 @@ class TimerFragmentPresenter(private val view: TimerView, private val storage: I
     }
   }
 
-  private fun showElapsedTime() {
+  @VisibleForTesting
+  fun savePunchcardIfNecessary(time: Long): Job? {
+    if (started) {
+      return async { punchcardDao.insert(Punchcard(storedTime, time)) }
+    }
+    return null
+  }
+
+  @VisibleForTesting
+  fun updateStorage(time: Long) {
+    if (started) {
+      storage.reset()
+    } else {
+      storedTime = time
+      storage.store(TIME_KEY, getTime())
+    }
+  }
+
+  @VisibleForTesting
+  fun showElapsedTime() {
     val time = getTime() - storedTime
     view.showElapsedTime(time.toElapsedTimeString())
   }
 
-  private fun getTime(): Long {
+  @VisibleForTesting
+  fun getTime(): Long {
     return Calendar.getInstance(locale).timeInMillis
   }
 

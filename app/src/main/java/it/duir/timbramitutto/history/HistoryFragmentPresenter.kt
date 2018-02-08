@@ -2,7 +2,7 @@ package it.duir.timbramitutto.history
 
 import it.duir.timbramitutto.model.Punchcard
 import it.duir.timbramitutto.model.PunchcardDao
-import it.duir.timbramitutto.utils.async
+import kotlinx.coroutines.experimental.async
 
 class HistoryFragmentPresenter(private val view: HistoryView,
                                private val punchcardDao: PunchcardDao) : HistoryPresenter {
@@ -24,7 +24,7 @@ class HistoryFragmentPresenter(private val view: HistoryView,
     view.hideSearch()
   }
 
-  override fun searchTermChanged(searchTerm: String) {
+  override fun searchTermChanged(searchTerm: String){
     if (searchTerm.isNotEmpty()) {
       val queryTerm = "%$searchTerm%"
       async { view.updateSearchTerm(queryTerm) }
