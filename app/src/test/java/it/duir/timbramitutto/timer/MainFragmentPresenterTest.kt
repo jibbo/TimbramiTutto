@@ -2,7 +2,6 @@ package it.duir.timbramitutto.timer
 
 import eu.giovannidefrancesco.easysharedprefslib.IStorage
 import it.duir.timbramitutto.app.Application.Companion.BASE_TIME
-import it.duir.timbramitutto.app.Application.Companion.TIME_FORMAT
 import it.duir.timbramitutto.model.PunchcardDao
 import it.duir.timbramitutto.timer.TimerFragmentPresenter.Companion.TIME_KEY
 import org.junit.Before

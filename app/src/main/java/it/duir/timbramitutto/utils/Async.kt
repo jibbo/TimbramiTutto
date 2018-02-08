@@ -1,3 +1,5 @@
 package it.duir.timbramitutto.utils
 
-fun <T> async(body: suspend () -> T){}
+import kotlinx.coroutines.experimental.launch
+
+fun <T> async(body: suspend () -> T) = launch { body.invoke() }
